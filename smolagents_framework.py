@@ -6,18 +6,23 @@ import os, langfuse
 from langfuse import get_client
 from openinference.instrumentation.smolagents import SmolagentsInstrumentor
 from dotenv import load_dotenv
+import mlflow
 
-# Load private keys into os.environ from .env file
+mlflow.set_tracking_uri("http://127.0.0.1:5001") # sets the port
+mlflow.set_experiment("smolagents-alfred") # names the experiment in MLflow
+mlflow.smolagents.autolog()  # start tracing everything below
+
+# # Load private keys into os.environ from .env file
 load_dotenv()
 
-# Verify LangFuse connection
-langfuse = get_client()
-if langfuse.auth_check():
-    print("LangFuse connection successful!")
-else:
-    print("LangFuse connection failed. Please check your API keys and network connection.") 
+# # Verify LangFuse connection
+# langfuse = get_client()
+# if langfuse.auth_check():
+#     print("LangFuse connection successful!")
+# else:
+#     print("LangFuse connection failed. Please check your API keys and network connection.") 
 
-SmolagentsInstrumentor().instrument()
+# SmolagentsInstrumentor().instrument()
 
 @tool
 def suggest_menu(occasion: str) -> str:
