@@ -7,6 +7,7 @@ from langfuse import get_client
 from openinference.instrumentation.smolagents import SmolagentsInstrumentor
 from dotenv import load_dotenv
 import mlflow
+from langchain.agents import load_tools
 
 mlflow.set_tracking_uri("http://127.0.0.1:5001") # sets the port
 mlflow.set_experiment("smolagents-alfred") # names the experiment in MLflow
